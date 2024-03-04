@@ -1,0 +1,155 @@
+openapi: 3.0.1
+info:
+  description: "This is a development server for User Management Service. This service exposes apis of User Management Service"
+  version: "v1.0.0"
+  title: "User Management Service"
+  termsOfService: ""
+  contact:
+    email: ""
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+servers:
+  - url: 'http://localhost:8080/api/v1/usermgmt'
+    description: Generated server url
+tags:
+  - name: User-API
+    description: User Service
+paths:
+  '/user/{mobileNumber}':
+    get:
+      tags:
+        - User-API
+      summary: Get User By Mobile Number
+      operationId: getUserByMobileNumber
+      parameters:
+        - in: path
+          name: mobileNumber
+          required: true
+          schema:
+            type: string
+          description: can pass role-name to fetch the role details
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExceptionResponse'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExceptionResponse'
+        405:
+          description: Method not supported
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExceptionResponse'
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExceptionResponse'
+        503:
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExceptionResponse'
+  '/user':
+    post:
+      tags:
+        - User-API
+      summary: Create User
+      operationId: createUser
+      requestBody:
+        description: Create User
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserRequest'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExceptionResponse'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExceptionResponse'
+        405:
+          description: Method not supported
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExceptionResponse'
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExceptionResponse'
+        503:
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExceptionResponse'
+
+components:
+  schemas:
+    UserRequest:
+      type: object
+      required:
+        - firstName
+        - lastName
+        - mobileNumber
+        - pinCode
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        mobileNumber:
+          type: string
+    UserResponse:
+      type: object
+      properties:
+        userId:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        mobileNumber:
+          type: string
+    ExceptionResponse:
+      type: object
+      properties:
+        errorCode:
+          type: string
+        errorMessage:
+          type: string
+        localDateTime:
+          type: string
