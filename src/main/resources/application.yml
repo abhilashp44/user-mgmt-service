@@ -34,4 +34,4 @@ spring:
       resourceserver:
         jwt:
           issuer-uri: https://dev-xokjpwctwfjktg8f.us.auth0.com/
-          audience: http://kronocash-service
+          audience: http://usermgmt-service
